@@ -2,6 +2,8 @@ package com.andrezktt.learning_platform.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,9 @@ public class CourseEntity {
     private String name;
     private String imgUri;
     private String imgGrayUri;
+
+    @OneToMany(mappedBy = "course")
+    private List<OfferEntity> offers = new ArrayList<>();
 
     public CourseEntity() {
     }
@@ -55,6 +60,10 @@ public class CourseEntity {
 
     public void setImgGrayUri(String imgGrayUri) {
         this.imgGrayUri = imgGrayUri;
+    }
+
+    public List<OfferEntity> getOffers() {
+        return offers;
     }
 
     @Override
