@@ -3,6 +3,8 @@ package com.andrezktt.learning_platform.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,9 @@ public class OfferEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity course;
+
+    @OneToMany(mappedBy = "offer")
+    private List<ResourceEntity> resources = new ArrayList<>();
 
     public OfferEntity() {
     }
@@ -69,6 +74,10 @@ public class OfferEntity {
 
     public void setCourse(CourseEntity course) {
         this.course = course;
+    }
+
+    public List<ResourceEntity> getResources() {
+        return resources;
     }
 
     @Override
