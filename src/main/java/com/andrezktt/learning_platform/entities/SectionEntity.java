@@ -1,15 +1,12 @@
 package com.andrezktt.learning_platform.entities;
 
-import com.andrezktt.learning_platform.enums.ResourceType;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_resource")
-public class ResourceEntity {
+@Table(name = "tb_section")
+public class SectionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,26 +15,26 @@ public class ResourceEntity {
     private String description;
     private Integer position;
     private String imgUri;
-    private ResourceType type;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id")
-    private OfferEntity offer;
+    @JoinColumn(name = "resource_id")
+    private ResourceEntity resource;
 
-    @OneToMany(mappedBy = "resource")
-    private List<SectionEntity> sections = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "prerequisite_id")
+    private SectionEntity prerequisite;
 
-    public ResourceEntity() {
+    public SectionEntity() {
     }
 
-    public ResourceEntity(Long id, String title, String description, Integer position, String imgUri, ResourceType type, OfferEntity offer) {
+    public SectionEntity(Long id, String title, String description, Integer position, String imgUri, ResourceEntity resource, SectionEntity prerequisite) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.position = position;
         this.imgUri = imgUri;
-        this.type = type;
-        this.offer = offer;
+        this.resource = resource;
+        this.prerequisite = prerequisite;
     }
 
     public Long getId() {
@@ -80,26 +77,26 @@ public class ResourceEntity {
         this.imgUri = imgUri;
     }
 
-    public ResourceType getType() {
-        return type;
+    public ResourceEntity getResource() {
+        return resource;
     }
 
-    public void setType(ResourceType type) {
-        this.type = type;
+    public void setResource(ResourceEntity resource) {
+        this.resource = resource;
     }
 
-    public OfferEntity getOffer() {
-        return offer;
+    public SectionEntity getPrerequisite() {
+        return prerequisite;
     }
 
-    public void setOffer(OfferEntity offer) {
-        this.offer = offer;
+    public void setPrerequisite(SectionEntity prerequisite) {
+        this.prerequisite = prerequisite;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        ResourceEntity that = (ResourceEntity) o;
+        SectionEntity that = (SectionEntity) o;
         return Objects.equals(id, that.id);
     }
 
