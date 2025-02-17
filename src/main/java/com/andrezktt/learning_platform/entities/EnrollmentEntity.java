@@ -1,12 +1,11 @@
 package com.andrezktt.learning_platform.entities;
 
 import com.andrezktt.learning_platform.entities.pk.EnrollmentPK;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -23,6 +22,9 @@ public class EnrollmentEntity {
 
     private boolean available;
     private boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentsDone")
+    private Set<LessonEntity> lessonsDone = new HashSet<>();
 
     public EnrollmentEntity() {
     }
