@@ -29,6 +29,9 @@ public class OfferEntity {
     @OneToMany(mappedBy = "offer")
     private List<ResourceEntity> resources = new ArrayList<>();
 
+    @OneToMany(mappedBy = "offer")
+    private List<TopicEntity> topics = new ArrayList<>();
+
     public OfferEntity() {
     }
 
@@ -82,6 +85,10 @@ public class OfferEntity {
 
     public List<ResourceEntity> getResources() {
         return resources;
+    }
+
+    public List<TopicEntity> getTopics() {
+        return topics;
     }
 
     @Override

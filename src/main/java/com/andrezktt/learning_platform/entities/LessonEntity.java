@@ -2,9 +2,7 @@ package com.andrezktt.learning_platform.entities;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_lesson")
@@ -20,6 +18,9 @@ public abstract class LessonEntity {
     @ManyToOne
     @JoinColumn(name = "section_id")
     private SectionEntity section;
+
+    @OneToMany(mappedBy = "lesson")
+    private List<DeliverEntity> deliveries = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -76,6 +77,10 @@ public abstract class LessonEntity {
 
     public Set<EnrollmentEntity> getEnrollmentsDone() {
         return enrollmentsDone;
+    }
+
+    public List<DeliverEntity> getDeliveries() {
+        return deliveries;
     }
 
     @Override

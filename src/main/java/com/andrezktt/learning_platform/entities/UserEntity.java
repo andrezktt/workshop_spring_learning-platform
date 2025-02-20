@@ -73,8 +73,8 @@ public class UserEntity {
         return roles;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
+    public List<NotificationEntity> getNotifications() {
+        return notifications;
     }
 
     @Override

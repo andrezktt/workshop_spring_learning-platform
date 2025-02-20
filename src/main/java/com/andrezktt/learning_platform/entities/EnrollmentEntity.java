@@ -4,8 +4,7 @@ import com.andrezktt.learning_platform.entities.pk.EnrollmentPK;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -25,6 +24,9 @@ public class EnrollmentEntity {
 
     @ManyToMany(mappedBy = "enrollmentsDone")
     private Set<LessonEntity> lessonsDone = new HashSet<>();
+
+    @OneToMany(mappedBy = "enrollment")
+    private List<DeliverEntity> deliveries = new ArrayList<>();
 
     public EnrollmentEntity() {
     }
@@ -86,5 +88,19 @@ public class EnrollmentEntity {
         this.onlyUpdate = onlyUpdate;
     }
 
+    public List<DeliverEntity> getDeliveries() {
+        return deliveries;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        EnrollmentEntity that = (EnrollmentEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
