@@ -3,9 +3,7 @@ package com.andrezktt.learning_platform.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_topic")
@@ -34,6 +32,10 @@ public class TopicEntity {
     @JoinColumn(name = "lesson_id")
     private LessonEntity lesson;
 
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private ReplyEntity answer;
+
     @ManyToMany
     @JoinTable(
             name = "tb_topic_likes",
@@ -41,6 +43,9 @@ public class TopicEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<UserEntity> likes = new HashSet<>();
+
+    @OneToMany(mappedBy = "topic")
+    private List<ReplyEntity> replies = new ArrayList<>();
 
     public TopicEntity() {
     }
@@ -113,6 +118,18 @@ public class TopicEntity {
 
     public Set<UserEntity> getLikes() {
         return likes;
+    }
+
+    public ReplyEntity getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(ReplyEntity answer) {
+        this.answer = answer;
+    }
+
+    public List<ReplyEntity> getReplies() {
+        return replies;
     }
 
     @Override
