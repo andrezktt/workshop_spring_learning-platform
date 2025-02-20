@@ -2,9 +2,7 @@ package com.andrezktt.learning_platform.entities;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -24,6 +22,9 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<RoleEntity> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<NotificationEntity> notifications = new ArrayList<>();
 
     public UserEntity() {
     }
